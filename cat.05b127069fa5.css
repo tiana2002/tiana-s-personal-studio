@@ -1,0 +1,6 @@
+.cat-target{position:absolute;z-index:4;pointer-events:auto;cursor:pointer;border:0;border-radius:45%;background:transparent;padding:0;touch-action:manipulation}
+.cat-target[hidden],.cat-bubble[hidden]{display:none!important}
+.cat-target:focus-visible{outline:2px solid #c4949b;outline-offset:4px}
+.cat-bubble{position:absolute;left:50%;bottom:calc(100% + 7px);transform:translateX(-50%);white-space:nowrap;padding:8px 13px;border:1px solid #e4d3c5;border-radius:15px;background:#fffaf1;color:#a47780;box-shadow:0 4px 14px #71554216;font-family:inherit;font-size:13px;line-height:1.25;pointer-events:none}
+.cat-bubble::after{content:'';position:absolute;left:50%;top:100%;margin-left:-4px;border:4px solid transparent;border-top-color:#fffaf1}
+@media(prefers-reduced-motion:reduce){.cat-target,.cat-bubble{transition:none}}

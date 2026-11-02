@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f1e9" />
+  <meta name="description" content="探索叶姝妤的3D个人工作室，了解教育经历、实习项目、创意作品与个人简历。" />
+  <title>My Personal Studio｜叶姝妤的互动简历</title>
+  <meta property="og:title" content="My Personal Studio｜叶姝妤的互动简历">
+  <meta property="og:description" content="探索叶姝妤的3D个人工作室，了解教育经历、实习项目、创意作品与个人简历。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/review-discovery/invitation-home-f9e82ddb6c60.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.bdfd032ba16a.css" />
+  <link rel="stylesheet" href="./avatar-layout.5e97d0021ae4.css" />
+  <link rel="stylesheet" href="./office-pilot.3657cd4b8345.css" />
+  <link rel="stylesheet" href="./cat.05b127069fa5.css" />
+  <link rel="stylesheet" href="./ui-system.230d90857095.css" />
+  <link rel="stylesheet" href="./exploration.8ec2823b0ded.css" />
+  <link rel="stylesheet" href="./quick-resume.34ee38e2e805.css">
+</head>
+<body data-mobile-view="avatar" class="independent-avatar ui-upgrade">
+  <div id="app">
+    <header class="header">
+      <div class="brand" aria-label="My Personal Studio">
+        <span class="brand-title">MY PERSONAL<br/><small>STUDIO</small></span>
+      </div>
+      <div class="header-actions">
+        <span class="header-note">A LITTLE WORLD ABOUT ME</span>
+        <button id="aboutBtn" class="header-link" type="button">玩法说明</button>
+        <button id="contactBtn" class="header-link" type="button">联系我</button>
+        <button id="resumeBtn" class="btn btn-dark" type="button"><span>▤</span> 快速简历</button>
+      </div>
+    </header>
+
+    <nav class="mobile-switch" aria-label="选择人物或工作室"><button id="showAvatar" type="button" aria-pressed="true">← 返回人物</button><button id="showStudio" type="button" aria-pressed="false">探索 3D 工作室 →</button></nav>
+    <main class="main">
+      <section id="avatarPanel" class="avatar-panel" aria-label="独立3D人物展示">
+        <div class="avatar-intro"><span class="avatar-eyebrow">A LITTLE ABOUT ME</span><button id="explorationGuideBtn" type="button" aria-expanded="false" aria-controls="explorationGuide">探索指南 <span aria-hidden="true">↗</span></button><h1>你好，欢迎来坐坐<span>。</span></h1><p>从经历与作品，到我的日常与创作。<br>右边的工作室，收藏着关于我的故事。</p></div>
+        <div class="avatar-preview"><div class="avatar-floor" aria-hidden="true"></div><canvas id="avatarCanvas" tabindex="0" aria-label="独立3D人物，拖动旋转，滚轮缩放，方向键旋转"></canvas><p id="avatarStatus" class="avatar-status" role="status">正在打开3D人物…</p><div class="avatar-tools" aria-label="人物查看控制"><button id="avatarZoomIn" type="button" aria-label="放大人物">＋</button><button id="avatarZoomOut" type="button" aria-label="缩小人物">−</button><button id="avatarReset" type="button" aria-label="复位人物视角">⌂</button></div></div>
+        <div id="avatarLoad" class="ui-loading" role="status"><span id="avatarLoadText">正在打开人物…</span><button id="avatarRetry" type="button" hidden>重试人物</button></div>
+        <div class="guide-speech-slot"><div id="guideSpeech" class="guide-speech" hidden><p id="guideSpeechText" role="status" aria-live="polite"></p><button id="closeGuideSpeech" type="button" aria-label="关闭人物提示">×</button></div></div>
+        <div id="avatarOutfits" class="avatar-outfits" role="group" aria-label="选择人物造型"></div>
+        <p id="avatarModelNote" class="avatar-model-note">独立3D人物展示</p><p class="avatar-gesture">拖动旋转360° · 滚轮缩放</p>
+      </section>
+      <div class="corner-deco corner-top"></div>
+      <div id="stage" class="stage" role="region" aria-label="可以旋转缩放的3D个人工作室">
+        <canvas id="glCanvas" aria-label="实时渲染的三维工作室，拖动旋转，滚轮缩放"></canvas>
+        <div class="stage-vignette" aria-hidden="true"></div>
+        <div class="sun-glow" aria-hidden="true"></div>
+        <div id="hotspots" class="hotspot-layer"></div>
+        <button id="discoveryPrompt" class="discovery-prompt" type="button" hidden></button>
+
+        <div id="roomLoad" class="ui-loading room-loading" role="status"><span id="roomLoadText">工作室待探索</span><button id="roomRetry" type="button" hidden>重试工作室</button></div>
+        <div id="studioHint" class="studio-hint" hidden><span>拖动旋转房间，点击家具发现更多内容。</span><button id="dismissHint" type="button" aria-label="关闭操作提示">×</button></div>
+        <div id="stageError" class="stage-error" hidden>当前浏览器未能启动3D画面。你仍然可以通过下方导航浏览完整简历。</div>
+        <p id="furnitureStatus" role="status" hidden style="position:absolute;bottom:12px;left:14px;right:14px;padding:10px;border-radius:12px;background:#fff8ed;color:#896e61;font-size:11px;pointer-events:none"></p>
+      </div>
+      <aside class="scene-tools" aria-label="场景控制">
+        <button id="zoomIn" type="button" aria-label="放大场景" title="放大场景">＋</button>
+        <button id="zoomOut" type="button" aria-label="缩小场景" title="缩小场景">−</button>
+        <button id="resetCamera" type="button" aria-label="恢复初始镜头" title="恢复初始镜头">⌂</button>
+      </aside>
+      
+      <div class="corner-deco corner-bottom"></div>
+    </main>
+
+    <nav id="dock" class="dock" aria-label="工作室快捷导航">
+      <button type="button" data-target="books" aria-label="教育经历" aria-pressed="false"><span class="dock-icon" data-icon="book-open" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5C9 3.5 5.5 3.5 2 4.5v15c3.5-1 7-1 10 1 3-2 6.5-2 10-1v-15c-3.5-1-7-1-10 1Zm0 0v15"/></svg></span><span class="dock-copy" aria-hidden="true"><span>教育</span><i class="dock-divider"></i><span>经历</span></span></button>
+      <button type="button" data-target="skills" aria-label="能力证书" aria-pressed="false" class="with-divider"><span class="dock-icon" data-icon="ability" aria-hidden="true">✧</span><span class="dock-copy" aria-hidden="true"><span>能力</span><i class="dock-divider"></i><span>证书</span></span></button>
+      <button type="button" data-target="computer" aria-label="实习项目" aria-pressed="false" class="with-divider"><span class="dock-icon" data-icon="monitor" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 16v5"/></svg></span><span class="dock-copy" aria-hidden="true"><span>实习</span><i class="dock-divider"></i><span>项目</span></span></button>
+      <button type="button" data-target="creative" aria-label="个人作品" aria-pressed="false"><span class="dock-icon" data-icon="pencil" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5L8 21H3v-5L16 3Zm-2 2 5 5M3 16l5 5"/></svg></span><span class="dock-copy" aria-hidden="true"><span>个人</span><i class="dock-divider"></i><span>作品</span></span></button>
+    </nav>
+    <div class="bottom-caption">MADE WITH CURIOSITY <span class="caption-rule"></span> MY PERSONAL STUDIO</div>
+    <section id="explorationInvitation" class="exploration-invitation" aria-labelledby="invitationTitle" hidden>
+      <header><h2 id="invitationTitle">发现我的小世界 ✨</h2><button id="closeExplorationInvitation" type="button" aria-label="关闭首页探索邀请">×</button></header>
+      <p>这里不只有简历，还有一些藏起来的小惊喜。</p><div id="invitationObjects" class="invitation-objects"></div>
+      <button id="openInvitationGuide" class="invitation-more" type="button">点击房间里的小物件，开始探索吧！ <span aria-hidden="true">↗</span></button>
+    </section>
+
+    <section id="explorationGuide" class="exploration-guide" role="dialog" aria-modal="false" aria-labelledby="guideTitle" hidden>
+      <header><h2 id="guideTitle">偷偷告诉你 · 工作室探索指南</h2><button id="closeExplorationGuide" type="button" aria-label="关闭探索指南">×</button></header>
+      <p class="guide-intro">房间里藏着一些小惊喜，试着点击它们吧！</p><ul id="guideObjects"></ul>
+      <p id="guideWelcomeText" class="guide-welcome-note"></p><div class="guide-actions"><button id="replayGuideWelcome" type="button">再听一次欢迎提示</button><button id="reopenExplorationInvitation" type="button">重新显示首页探索邀请</button></div>
+    </section>
+    <div id="awardsOverlay" class="awards-overlay" hidden><section class="awards-dialog" role="dialog" aria-modal="true" aria-labelledby="awardsTitle">
+      <header class="awards-header"><div><h2 id="awardsTitle">MY AWARDS / 我的获奖记录</h2><p>记录每一份努力与收获</p></div><button id="closeAwards" class="round-close" type="button" aria-label="关闭获奖档案，返回工作室">×</button></header>
+      <button id="awardsBack" class="awards-back" type="button" hidden>← 返回获奖列表</button><div id="awardsContent" class="awards-content"></div>
+    </section></div>
+    <div id="albumOverlay" class="album-overlay" hidden>
+      <section class="album-dialog" role="dialog" aria-modal="true" aria-labelledby="albumHeading" aria-describedby="albumNotice">
+        <header class="album-top"><div><span class="album-kicker">LITTLE MOMENTS / 生活相册</span><h2 id="albumHeading">我的生活碎片 <span aria-hidden="true">♡</span></h2></div><button id="closeAlbum" class="round-close" type="button" aria-label="关闭相册，返回工作室">✕</button></header>
+        <figure class="album-figure"><div id="albumPhotoStage" class="album-photo-stage"><p id="albumStatus" role="status">生活照片待添加</p></div><figcaption><div><h3 id="albumPhotoTitle"></h3><p id="albumCaption"></p></div><span id="albumNotice"></span></figcaption></figure>
+        <div id="albumOverview" class="album-overview" aria-label="生活照片总览" hidden></div><footer class="album-controls"><button id="albumOverviewToggle" type="button" aria-expanded="false" aria-controls="albumOverview">照片总览</button><button id="albumPrev" type="button" aria-label="上一张照片">← <span>上一张</span></button><span id="albumCounter" aria-live="polite">1 / 3</span><button id="albumNext" type="button" aria-label="下一张照片"><span>下一张</span> →</button><button id="albumZoom" type="button" aria-pressed="false">放大照片</button></footer>
+      </section>
+    </div>
+
+    <div id="phoneOverlay" class="phone-overlay" hidden>
+      <section class="phone-shell" role="dialog" aria-modal="true" aria-labelledby="phoneTitle" aria-describedby="phoneNotice" tabindex="-1">
+        <div class="phone-island" aria-hidden="true"></div>
+        <header class="phone-top"><span>MY LITTLE ARCHIVE</span><button id="closePhone" type="button" aria-label="关闭手机，返回工作室">✕</button></header>
+        <div id="phoneContent" class="phone-content"></div>
+        <footer class="phone-bottom"><button id="phoneCreative" type="button">查看个人作品 <span aria-hidden="true">↗</span></button><span class="phone-home-bar" aria-hidden="true"></span></footer>
+      </section>
+    </div>
+
+    <aside id="detailPanel" class="detail-panel" aria-hidden="true" aria-label="探索详情">
+      <div class="panel-header"><span id="panel-kicker">MY WORKSPACE / 01</span><button id="closePanel" class="round-close" type="button" aria-label="关闭详情">✕</button></div>
+      <nav id="drawerTabs" class="drawer-tabs" aria-label="内容分类"></nav>
+      <div id="panelContent" class="panel-content"></div>
+      <div class="panel-footer"><span>MY PERSONAL STUDIO</span><button id="backRoom" type="button">← 返回工作室</button></div>
+    </aside>
+    <section id="contentDetail" class="content-detail" aria-label="内容详情" hidden><nav class="detail-nav"><a id="detailBack" href="#/projects">← 返回实习项目</a><button id="detailStudio" type="button">返回工作室 ↗</button></nav><article id="detailArticle"></article></section>
+    <div id="overlay" class="modal-overlay" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-top"><div><span class="modal-kicker">PERSONAL ARCHIVE</span><h2 id="modalTitle">完整简历</h2></div><button id="closeModal" class="round-close" aria-label="关闭窗口" type="button">✕</button></header>
+        <div id="modalContent" class="modal-content"></div>
+      </section>
+    </div>
+  </div>
+  <script src="./data.fa34eb94e4db.js"></script>
+  <script src="./awards-data.e8c781b04fa5.js"></script>
+  <script src="./phone-data.921fa1402aa1.js"></script>
+  <script src="./album-data.e6ebdc064e86.js"></script>
+  <script src="./album.1f2355e947d1.js"></script>
+  <script src="./scene-layout.98cbda626bd9.js"></script>
+  <script src="./scene.7eb7cdca633d.js"></script>
+  <script src="./furniture-config.b9cf4cff36f8.js"></script>
+  <script src="./furniture-loader.790abc02725d.js"></script>
+  <script src="./cat-config.732d0d49b24d.js"></script>
+  <script src="./cat.00f7f621e603.js"></script>
+  <script src="./office-renderer.4de14eac5ce0.js"></script>
+  <script src="./avatar-config.8184bb4b439d.js"></script>
+  <script src="./avatar-fit.45e412ca2773.js"></script>
+  <script src="./avatar-viewer.97cafdd426f6.js"></script>
+  <script src="./projects-data.7bfcb144e855.js"></script>
+  <script src="./portfolio-data.f42ffa7aee30.js"></script>
+  <script src="./content-ui.12d3de4f3185.js"></script>
+  <script src="./portfolio-gallery.72fb801779af.js"></script>
+  <script src="./exploration-data.9855d4d71d84.js"></script>
+  <script src="./discovery-scheduler.0bb023c67482.js"></script>
+  <script src="./discovery-hints.634116bb4640.js"></script>
+  <script src="./exploration.a65228396047.js"></script>
+  <script src="./awards-archive.675960bd51d3.js"></script>
+  <script src="./ui-controller.e1ba53f4def3.js"></script>
+  <script src="./quick-resume-data.a048ccecce29.js"></script>
+  <script src="./quick-resume.53ebc76e46af.js"></script>
+  <script src="./app.b374579a7de7.js"></script>
+</body>
+</html>
